@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public class FootballContract {
     // The authority, which is how your code knows which Content Provider to access
-    public static final String AUTHORITY = "com.example.football.provider";
+    public static final String AUTHORITY = "com.example.footballplayer";
 
     // The base content URI = "content://" + <authority>
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);

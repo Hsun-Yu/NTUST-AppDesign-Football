@@ -58,17 +58,13 @@ public class FootballContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        // COMPLETED (1) Get access to the task database (to write new data to)
         final SQLiteDatabase db = mFootballDbHelper.getWritableDatabase();
 
-        // COMPLETED (2) Write URI matching code to identify the match for the tasks directory
         int match = sUriMatcher.match(uri);
-        Uri returnUri; // URI to be returned
+        Uri returnUri;
 
         switch (match) {
             case PLAYERS:
-                // (3) Insert new values into the database
-                // Inserting values into tasks table
                 long id = db.insert(TABLE_NAME, null, values);
                 if ( id > 0 ) {
                     returnUri = ContentUris.withAppendedId(FootballContract.FootballEntry.CONTENT_URI, id);

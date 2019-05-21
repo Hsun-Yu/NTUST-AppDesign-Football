@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity_add_player"></activity>
+
         <provider
             android:name=".data.FootballContentProvider"
-            android:authorities="com.example.footballcontentprovider"
+            android:authorities="com.example.footballplayer"
             android:enabled="true"
-            android:exported="true"></provider>
-
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"

@@ -9,10 +9,10 @@ import com.example.footballplayer.data.FootballContract.FootballEntry;
 
 public class FootballDBHelper  extends SQLiteOpenHelper {
     // The name of the database
-    private static final String DATABASE_NAME = "footballDb.db";
+    private static final String DATABASE_NAME = "footballplayerDb.db";
 
     // If you change the database schema, you must increment the database version
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
 
     // Constructor
@@ -33,7 +33,7 @@ public class FootballDBHelper  extends SQLiteOpenHelper {
                 FootballEntry.COLUMN_NAME        + " TEXT NOT NULL, " +
                 FootballEntry.COLUMN_TEAM        + " TEXT NOT NULL," +
                 FootballEntry.COLUMN_NUM         + " INTEGER NOT NULL," +
-                FootballEntry.COLUMN_START       + "INTEGER NOT NULL);";
+                FootballEntry.COLUMN_START       + " INTEGER NOT NULL);";
 
         db.execSQL(CREATE_TABLE);
     }
