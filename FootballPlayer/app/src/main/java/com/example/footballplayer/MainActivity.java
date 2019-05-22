@@ -2,6 +2,7 @@ package com.example.footballplayer;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,6 +65,22 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // Here is where you'll implement swipe to delete
+                // Construct the URI for the item to delete
+                //[Hint] Use getTag (from the adapter code) to get the id of the swiped item
+                // Retrieve the id of the task to delete
+                int id = (int) viewHolder.itemView.getTag();
+
+                // Build appropriate uri with String row id appended
+                String stringId = Integer.toString(id);
+                Uri uri = FootballContract.FootballEntry.CONTENT_URI;
+                uri = uri.buildUpon().appendPath(stringId).build();
+
+                // Delete a single row of data using a ContentResolver
+                getContentResolver().delete(uri, null, null);
+
+                // Restart the loader to re-query for all tasks after a deletion
+                getSupportLoaderManager().restartLoader(PLAYER_LOADER_ID, null, MainActivity.this);
+
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -139,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements
                             null,
                             null,
                             null,
-                            FootballContract.FootballEntry.COLUMN_START);
+                            FootballContract.FootballEntry.COLUMN_NAME);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to asynchronously load data.");

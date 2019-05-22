@@ -46,8 +46,35 @@ public class FootballContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        // Get access to the database and write URI matching code to recognize a single item
+        final SQLiteDatabase db = mFootballDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        // Keep track of the number of deleted tasks
+        int playersDeleted; // starts as 0
+
+        // Write the code to delete a single row of data
+        // [Hint] Use selections to delete an item by its row ID
+        switch (match) {
+            // Handle the single item case, recognized by the ID included in the URI path
+            case PLAYER_WITH_ID:
+                // Get the task ID from the URI path
+                String id = uri.getPathSegments().get(1);
+                // Use selections/selectionArgs to filter for this ID
+                playersDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        // Notify the resolver of a change and return the number of items deleted
+        if (playersDeleted != 0) {
+            // A task was deleted, set notification
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of tasks deleted
+        return playersDeleted;
     }
 
     @Override
@@ -97,14 +124,14 @@ public class FootballContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-        // COMPLETED (1) Get access to underlying database (read-only for query)
+        // Get access to underlying database (read-only for query)
         final SQLiteDatabase db = mFootballDbHelper.getReadableDatabase();
 
-        // COMPLETED (2) Write URI match code and set a variable to return a Cursor
+        // Write URI match code and set a variable to return a Cursor
         int match = sUriMatcher.match(uri);
         Cursor retCursor;
 
-        // COMPLETED (3) Query for the tasks directory and write a default case
+        // Query for the tasks directory and write a default case
         switch (match) {
             // Query for the tasks directory
             case PLAYERS:
@@ -121,7 +148,7 @@ public class FootballContentProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
 
-        // COMPLETED (4) Set a notification URI on the Cursor and return that Cursor
+        // Set a notification URI on the Cursor and return that Cursor
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         // Return the desired Cursor
