@@ -11,12 +11,17 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
+
+import com.example.footballplayer.data.FootballContract;
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -33,8 +38,35 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Set the RecyclerView to its corresponding view
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewPlayers);
+
+        // Set the layout for the RecyclerView to be a linear layout, which measures and
+        // positions items within a RecyclerView into a linear list
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize the adapter and attach it to the RecyclerView
+        mAdapter = new CustomCursorAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                // Here is where you'll implement swipe to delete
+            }
+        }).attachToRecyclerView(mRecyclerView);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +134,18 @@ public class MainActivity extends AppCompatActivity implements
             // loadInBackground() performs asynchronous loading of data
             @Override
             public Cursor loadInBackground() {
-                // Will implement to load data
-                return null;
+                try {
+                    return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            FootballContract.FootballEntry.COLUMN_START);
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to asynchronously load data.");
+                    e.printStackTrace();
+                    return null;
+                }
             }
 
             // deliverResult sends the result of the load, a Cursor, to the registered listener
@@ -117,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         // Update the data that the adapter uses to create ViewHolders
-//        mAdapter.swapCursor(cursor);
+        mAdapter.swapCursor(cursor);
     }
 
     @Override

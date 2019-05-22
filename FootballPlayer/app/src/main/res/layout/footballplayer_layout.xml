@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.example.footballplayer.MainActivity">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="24dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="8dp">
+
+        <!-- TextView that displays the description of a task -->
+        <TextView
+            android:id="@+id/howGoodView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAlignment="center"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/primary_text_light"
+            android:background="@drawable/howgood_circle" />
+
+        <TextView
+            android:id="@+id/playerNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/primary_text_light"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            style="@style/TextAppearance.AppCompat.Medium" />
+
+        <!-- An empty view for spacing out the description and priority views -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- A priority circle that is colored in programmatically in the adapter code -->
+
+
+
+    </LinearLayout>
+
+    <!-- A gray divider line at the bottom of each task -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+</LinearLayout>

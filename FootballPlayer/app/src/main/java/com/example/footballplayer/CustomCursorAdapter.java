@@ -44,7 +44,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.content_main, parent, false);
+                .inflate(R.layout.footballplayer_layout, parent, false);
 
         return new PlayerViewHolder(view);
     }
@@ -62,31 +62,30 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         // Indices for the _id, description, and priority columns
         int idIndex = mCursor.getColumnIndex(FootballContract.FootballEntry._ID);
         int nameIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_NAME);
-        int teamIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_TEAM);
-        int numIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_NUM);
         int startIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_START);
+        int numIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_NUM);
 
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
         // Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
         String name = mCursor.getString(nameIndex);
-        String team = mCursor.getString(teamIndex);
+//        String team = mCursor.getString(teamIndex);
         int num = mCursor.getInt(numIndex);
         int start = mCursor.getInt(startIndex);
 
-//        //Set values
-//        holder.itemView.setTag(id);
-//        holder.taskDescriptionView.setText(description);
-//
-//        // Programmatically set the text and color for the priority TextView
-//        String priorityString = "" + priority; // converts int to String
-//        holder.priorityView.setText(priorityString);
-//
-//        GradientDrawable priorityCircle = (GradientDrawable) holder.priorityView.getBackground();
-//        // Get the appropriate background color based on the priority
-//        int priorityColor = getPriorityColor(priority);
-//        priorityCircle.setColor(priorityColor);
+        //Set values
+        holder.itemView.setTag(id);
+        holder.nameView.setText(name);
+
+        // Programmatically set the text and color for the priority TextView
+        String numString = "" + num; // converts int to String
+        holder.startView.setText(numString);
+
+        GradientDrawable priorityCircle = (GradientDrawable) holder.startView.getBackground();
+        // Get the appropriate background color based on the priority
+        int priorityColor = getStartColor(start);
+        priorityCircle.setColor(priorityColor);
 
     }
 
@@ -95,19 +94,19 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     Helper method for selecting the correct priority circle color.
     P1 = red, P2 = orange, P3 = yellow
     */
-    private int getPriorityColor(int priority) {
-        int priorityColor = 0;
+    private int getStartColor(int start) {
+        int startColor = 0;
 
-        switch(priority) {
-            case 1: priorityColor = ContextCompat.getColor(mContext, R.color.materialRed);
+        switch(start) {
+            case 1: startColor = ContextCompat.getColor(mContext, R.color.materialRed);
                 break;
-            case 2: priorityColor = ContextCompat.getColor(mContext, R.color.materialOrange);
+            case 2: startColor = ContextCompat.getColor(mContext, R.color.materialOrange);
                 break;
-            case 3: priorityColor = ContextCompat.getColor(mContext, R.color.materialYellow);
+            case 3: startColor = ContextCompat.getColor(mContext, R.color.materialYellow);
                 break;
             default: break;
         }
-        return priorityColor;
+        return startColor;
     }
 
 
@@ -148,8 +147,6 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
         // Class variables for the task description and priority TextViews
         TextView nameView;
-        TextView teamView;
-        TextView numView;
         TextView startView;
         /**
          * Constructor for the TaskViewHolders.
@@ -158,10 +155,8 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
          */
         public PlayerViewHolder(View itemView) {
             super(itemView);
-//            nameView = (TextView) itemView.findViewById(R.id);
-//            teamView = (TextView) itemView.findViewById(R.id);
-//            numView = (TextView) itemView.findViewById(R.id);
-//            startView = (TextView) itemView.findViewById(R.id);
+            nameView = (TextView) itemView.findViewById(R.id.playerNameView);
+            startView = (TextView) itemView.findViewById(R.id.howGoodView);
         }
     }
 }
