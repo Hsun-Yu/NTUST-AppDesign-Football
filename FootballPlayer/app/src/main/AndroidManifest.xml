@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.footballplayer">
+
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -11,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".PlayerDetailActivity"
+            android:label="@string/title_activity_player_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity_add_player" />
 
         <provider
@@ -25,13 +30,13 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-         <!--Modify here and inside of SettingsActivity so that VisualizerActivity is treated-->
-         <!--as the parent of SettingsActivity and the up button is displayed :-->
-         <!--https://developer.android.com/training/implementing-navigation/ancestral.html-->
-         <!--Make sure to use the attribute android:launchMode singleTop-->
+        </activity> <!-- Modify here and inside of SettingsActivity so that VisualizerActivity is treated -->
+        <!-- as the parent of SettingsActivity and the up button is displayed : -->
+        <!-- https://developer.android.com/training/implementing-navigation/ancestral.html -->
+        <!-- Make sure to use the attribute android:launchMode singleTop -->
         <activity
             android:name=".activity_settings"
             android:label="@string/action_settings"

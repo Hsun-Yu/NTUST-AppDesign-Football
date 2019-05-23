@@ -1,6 +1,7 @@
 package com.example.footballplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.footballplayer.data.FootballContract;
+
+import java.util.List;
 
 
 /**
@@ -23,17 +26,21 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     private Cursor mCursor;
     private Context mContext;
 
+    private OnItemListener mOnItemListener;
+    public static final String PLAYER_NAME = "com.example.footballplayer.PLAYER_NAME";
+    public static final String PLAYER_TEAM = "com.example.footballplayer.PLAYER_TEAM";
+    public static final String PLAYER_NUM = "com.example.footballplayer.PLAYER_NUM";
+    public static final String PLAYER_START = "com.example.footballplayer.PLAYER_START";
 
     /**
      * Constructor for the CustomCursorAdapter that initializes the Context.
      *
      * @param mContext the current Context
      */
-    public CustomCursorAdapter(Context mContext) {
+    public CustomCursorAdapter(Context mContext, OnItemListener onItemListener) {
         this.mContext = mContext;
+        this.mOnItemListener = onItemListener;
     }
-
-
     /**
      * Called when ViewHolders are created to fill a RecyclerView.
      *
@@ -46,7 +53,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.footballplayer_layout, parent, false);
 
-        return new PlayerViewHolder(view);
+        return new PlayerViewHolder(view, mOnItemListener);
     }
 
 
@@ -76,6 +83,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         int start = mCursor.getInt(startIndex);
 
         //Set values
+        holder.start = start;
         holder.itemView.setTag(id);
         holder.nameView.setText(name);
 
@@ -83,6 +91,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
         holder.nameView.setText(name);
 
+        holder.num = mCursor.getInt(numIndex);
         // Programmatically set the text and color for the priority TextView
         String numString = "" + num; // converts int to String
         holder.startView.setText(numString);
@@ -148,22 +157,44 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
 
     // Inner class for creating ViewHolders
-    class PlayerViewHolder extends RecyclerView.ViewHolder {
+    class PlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         // Class variables for the task description and priority TextViews
         TextView nameView;
         TextView startView;
         TextView teamView;
+        int num;
+        int start;
+        OnItemListener onItemListener;
         /**
          * Constructor for the TaskViewHolders.
          *
          * @param itemView The view inflated in onCreateViewHolder
          */
-        public PlayerViewHolder(View itemView) {
+        public PlayerViewHolder(View itemView, OnItemListener onItemListener) {
             super(itemView);
             nameView = (TextView) itemView.findViewById(R.id.playerNameView);
             startView = (TextView) itemView.findViewById(R.id.howGoodView);
             teamView = (TextView) itemView.findViewById((R.id.playerTeamView));
+            this.onItemListener = onItemListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemListener.onItemClick(getAdapterPosition());
+
+            Intent intent = new Intent(mContext, PlayerDetailActivity.class);
+            intent.putExtra(PLAYER_NAME, nameView.getText().toString());
+            intent.putExtra(PLAYER_TEAM, teamView.getText().toString());
+            intent.putExtra(PLAYER_NUM, num);
+            intent.putExtra(PLAYER_START, start);
+            mContext.startActivity(intent);
+        }
+    }
+
+    public interface OnItemListener{
+        void onItemClick(int posotion);
     }
 }

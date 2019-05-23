@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".PlayerDetailActivity"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_player_detail">
+
+
+    <TextView
+        android:id="@+id/player_team_detail_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:text="PlayerName"
+        android:textColor="@color/design_default_color_primary_dark"
+        style="@style/TextAppearance.AppCompat.Title.Inverse"/>
+
+    <TextView
+        android:id="@+id/player_num_detail_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Team"
+        android:paddingLeft="30dp"
+        android:textColor="@color/design_default_color_primary_dark"
+        style="@style/TextAppearance.AppCompat.Small"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/player_start_detail_view"
+        android:text="He is a very good player" />
+
+</LinearLayout>

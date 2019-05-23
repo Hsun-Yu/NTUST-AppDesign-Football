@@ -34,7 +34,7 @@ import com.example.footballplayer.data.FootballContract;
 import com.example.footballplayer.Audio.AudioInputReader;
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>, CustomCursorAdapter.OnItemListener{
     private static final int MY_PERMISSION_RECORD_AUDIO_REQUEST_CODE = 88;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int PLAYER_LOADER_ID = 0;
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements
 
     //sort
     int sortId = 0;
+
+//    public static final String PLAYER_ID = "com.example.footballplayer.PLAYER_ID";
 
 
     @Override
@@ -72,11 +74,13 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new CustomCursorAdapter(this);
+        mAdapter = new CustomCursorAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -288,5 +292,9 @@ public class MainActivity extends AppCompatActivity implements
         if (mAudioInputReader != null) {
             mAudioInputReader.shutdown(isFinishing());
         }
+    }
+
+    @Override
+    public void onItemClick(int posotion) {
     }
 }
