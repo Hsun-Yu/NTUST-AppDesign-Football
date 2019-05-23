@@ -35,4 +35,11 @@
         android:id="@+id/player_start_detail_view"
         android:text="He is a very good player" />
 
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/start_detail_ratingbar"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="3"/>
+
 </LinearLayout>
