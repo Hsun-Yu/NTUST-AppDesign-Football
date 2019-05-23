@@ -26,7 +26,7 @@ public class activity_add_player extends AppCompatActivity {
      */
     public void onClickAddPlayer(View view) {
 // Not yet implemented
-        // COMPLETED (6) Check if EditText is empty, if not retrieve input and store it in a ContentValues object
+        // Check if EditText is empty, if not retrieve input and store it in a ContentValues object
         // If the EditText input is empty -> don't create an entry
         String name = ((EditText) findViewById(R.id.editTextPlayerName)).getText().toString();
         String team = ((EditText) findViewById(R.id.editTextPlayerTeam)).getText().toString();
@@ -35,7 +35,7 @@ public class activity_add_player extends AppCompatActivity {
             return;
         }
 
-        // COMPLETED (7) Insert new task data via a ContentResolver
+        // Insert new task data via a ContentResolver
         // Create new empty ContentValues object
         ContentValues contentValues = new ContentValues();
 
