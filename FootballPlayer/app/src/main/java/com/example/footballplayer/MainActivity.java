@@ -121,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(addPlayerIntent);
             }
         });
+
+        FloatingActionButton fabTest = findViewById(R.id.fabtest);
+        fabTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to start an AddTaskActivity
+
+            }
+        });
     }
 
     private void setupSharedPreferences()
