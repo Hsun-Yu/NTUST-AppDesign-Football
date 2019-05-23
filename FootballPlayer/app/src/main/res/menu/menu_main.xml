@@ -7,4 +7,22 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:icon="@drawable/ic_sort_black_24dp"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item android:id="@+id/action_namesort"
+                android:title="Sort by Name" />
+            <item android:id="@+id/action_howgoodsort"
+                android:title="Sort by How Good" />
+            <item android:id="@+id/action_teamsort"
+                android:title="Sort by Team" />
+            <item android:id="@+id/action_numsort"
+                android:title="Sort by Number" />
+        </menu>
+    </item>
+
+
 </menu>

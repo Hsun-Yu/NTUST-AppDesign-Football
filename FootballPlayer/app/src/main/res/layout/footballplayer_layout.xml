@@ -26,15 +26,28 @@
             style="@style/TextAppearance.AppCompat.Small"
             android:textColor="@android:color/primary_text_light"
             android:background="@drawable/howgood_circle" />
-
-        <TextView
-            android:id="@+id/playerNameView"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            style="@style/TextAppearance.AppCompat.Medium" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/playerNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/primary_text_light"
+                android:layout_marginLeft="20dp"
+                style="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/playerTeamView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginLeft="20dp"
+                style="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+
+
 
         <!-- An empty view for spacing out the description and priority views -->
         <View

@@ -62,6 +62,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         // Indices for the _id, description, and priority columns
         int idIndex = mCursor.getColumnIndex(FootballContract.FootballEntry._ID);
         int nameIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_NAME);
+        int teamIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_TEAM);
         int startIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_START);
         int numIndex = mCursor.getColumnIndex(FootballContract.FootballEntry.COLUMN_NUM);
 
@@ -70,12 +71,16 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         // Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
         String name = mCursor.getString(nameIndex);
-//        String team = mCursor.getString(teamIndex);
+        String team = mCursor.getString(teamIndex);
         int num = mCursor.getInt(numIndex);
         int start = mCursor.getInt(startIndex);
 
         //Set values
         holder.itemView.setTag(id);
+        holder.nameView.setText(name);
+
+        holder.teamView.setText(team);
+
         holder.nameView.setText(name);
 
         // Programmatically set the text and color for the priority TextView
@@ -148,6 +153,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         // Class variables for the task description and priority TextViews
         TextView nameView;
         TextView startView;
+        TextView teamView;
         /**
          * Constructor for the TaskViewHolders.
          *
@@ -157,6 +163,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
             super(itemView);
             nameView = (TextView) itemView.findViewById(R.id.playerNameView);
             startView = (TextView) itemView.findViewById(R.id.howGoodView);
+            teamView = (TextView) itemView.findViewById((R.id.playerTeamView));
         }
     }
 }

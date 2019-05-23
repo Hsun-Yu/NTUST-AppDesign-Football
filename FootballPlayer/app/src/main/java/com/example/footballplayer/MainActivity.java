@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements
 
     private boolean isPlayOn;
 
+    //sort
+    int sortId = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +191,19 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(startSettingsActivity);
             return true;
         }
-
+        else if(id == R.id.action_teamsort){
+            sortId = 0;
+        }
+        else if(id == R.id.action_howgoodsort){
+            sortId = 1;
+        }
+        else if(id == R.id.action_namesort){
+            sortId = 2;
+        }
+        else if(id == R.id.action_numsort){
+            sortId = 3;
+        }
+        onResume();
         return super.onOptionsItemSelected(item);
     }
 
@@ -216,11 +231,30 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public Cursor loadInBackground() {
                 try {
-                    return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
+                    if(sortId == 0)
+                        return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
                             null,
                             null,
                             null,
-                            FootballContract.FootballEntry.COLUMN_NAME);
+                            FootballContract.FootballEntry.COLUMN_TEAM);
+                    else if(sortId == 1)
+                        return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                FootballContract.FootballEntry.COLUMN_START);
+                    else if(sortId == 2)
+                        return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                FootballContract.FootballEntry.COLUMN_NAME);
+                    else
+                        return getContentResolver().query(FootballContract.FootballEntry.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                FootballContract.FootballEntry.COLUMN_NUM);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to asynchronously load data.");
