@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 // Create a new intent to start an AddTaskActivity
-
+                Intent quizIntent = new Intent(MainActivity.this, QuizActivity.class);
+                startActivity(quizIntent);
             }
         });
     }
