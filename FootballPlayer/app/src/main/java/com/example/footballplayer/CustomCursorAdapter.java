@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.footballplayer.data.FootballContract;
@@ -163,6 +164,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         TextView nameView;
         TextView startView;
         TextView teamView;
+        Button btn;
         int num;
         int start;
         OnItemListener onItemListener;
@@ -176,7 +178,28 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
             nameView = (TextView) itemView.findViewById(R.id.playerNameView);
             startView = (TextView) itemView.findViewById(R.id.howGoodView);
             teamView = (TextView) itemView.findViewById((R.id.playerTeamView));
+
+
             this.onItemListener = onItemListener;
+
+            btn = (Button)itemView.findViewById(R.id.editplayrt_button);
+
+            btn.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                       // Create a new intent to start an AddTaskActivity
+                       Intent editPlayerIntent = new Intent(mContext, UpdatePlayerActivity.class);
+                       editPlayerIntent.putExtra(PLAYER_NAME, nameView.getText().toString());
+                       editPlayerIntent.putExtra(PLAYER_TEAM, teamView.getText().toString());
+                       editPlayerIntent.putExtra(PLAYER_NUM, num);
+                       editPlayerIntent.putExtra(PLAYER_START, start);
+                       mContext.startActivity(editPlayerIntent);
+                   }
+                }
+            );
+
 
             itemView.setOnClickListener(this);
         }

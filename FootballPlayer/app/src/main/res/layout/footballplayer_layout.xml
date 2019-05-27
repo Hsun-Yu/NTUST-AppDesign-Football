@@ -58,7 +58,15 @@
         <!-- A priority circle that is colored in programmatically in the adapter code -->
 
 
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="EDIT"
+            android:id="@+id/editplayrt_button"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/primary_text_dark"
+            android:background="@color/colorPrimary"
+            />
     </LinearLayout>
 
     <!-- A gray divider line at the bottom of each task -->
@@ -66,4 +74,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
+
 </LinearLayout>
