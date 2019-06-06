@@ -158,6 +158,33 @@ public class FootballContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        final SQLiteDatabase db = mFootballDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+
+        String id = uri.getPathSegments().get(1);
+        int s;
+
+        switch (match) {
+            case PLAYER_WITH_ID:
+                int idd = db.update(TABLE_NAME, values,"_id=?", new String[]{id});
+                if ( idd > 0 ) {
+                    s = idd;
+                } else {
+                    throw new android.database.SQLException("Failed to Update row into " + uri);
+                }
+                break;
+            // Set the value for the returnedUri and write the default case for unknown URI's
+            // Default case throws an UnsupportedOperationException
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        // Notify the resolver if the uri has been changed, and return the newly inserted URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return constructed uri (this points to the newly inserted row of data)
+        return s;
+//        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

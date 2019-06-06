@@ -28,6 +28,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     private Context mContext;
 
     private OnItemListener mOnItemListener;
+    public static final String PLAYER_ID = "com.example.footballplayer.PLAYER_ID";
     public static final String PLAYER_NAME = "com.example.footballplayer.PLAYER_NAME";
     public static final String PLAYER_TEAM = "com.example.footballplayer.PLAYER_TEAM";
     public static final String PLAYER_NUM = "com.example.footballplayer.PLAYER_NUM";
@@ -173,7 +174,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
          *
          * @param itemView The view inflated in onCreateViewHolder
          */
-        public PlayerViewHolder(View itemView, OnItemListener onItemListener) {
+        public PlayerViewHolder(final View itemView, OnItemListener onItemListener) {
             super(itemView);
             nameView = (TextView) itemView.findViewById(R.id.playerNameView);
             startView = (TextView) itemView.findViewById(R.id.howGoodView);
@@ -191,6 +192,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 //                        .setAction("Action", null).show();
                        // Create a new intent to start an AddTaskActivity
                        Intent editPlayerIntent = new Intent(mContext, UpdatePlayerActivity.class);
+                       editPlayerIntent.putExtra(PLAYER_ID, (int)itemView.getTag());
                        editPlayerIntent.putExtra(PLAYER_NAME, nameView.getText().toString());
                        editPlayerIntent.putExtra(PLAYER_TEAM, teamView.getText().toString());
                        editPlayerIntent.putExtra(PLAYER_NUM, num);
